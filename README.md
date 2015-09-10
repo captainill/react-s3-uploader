@@ -3,6 +3,18 @@ react-s3-uploader
 
 Provides a `React` component that automatically uploads to an S3 Bucket.
 
+Notes on updates I've made to this forked repo
+
+* added ability to remove file from input
+* added callback to handle when file is removed
+* transform needs to be run module now. Ex include for webpack:
+-----------
+    include: [
+        path.join(__dirname, 'src'),
+        path.join(__dirname, '/node_modules/react-s3-uploader')
+    ]
+
+
 Install
 -----------
 

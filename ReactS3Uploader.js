@@ -37,7 +37,7 @@ var ReactS3Uploader = React.createClass({
 
     uploadFile: function() {
         new S3Upload({
-            fileElement: this.getDOMNode(),
+            fileElement: React.findDOMNode(this.refs.input),
             signingUrl: this.props.signingUrl,
             onProgress: this.props.onProgress,
             onFinishS3Put: this.props.onFinish,
@@ -50,8 +50,6 @@ var ReactS3Uploader = React.createClass({
 
     _removeFile: function(){
       this.props.onClearInput();
-
-      console.log(React.findDOMNode(this.refs.input).value);
       React.findDOMNode(this.refs.input).value = '';
     },
 
@@ -62,7 +60,7 @@ var ReactS3Uploader = React.createClass({
                 <a className="remove-file-btn" onClick={this._removeFile}>X</a>
               : null
             }
-            <input {...this.props} ref="input" type="file" onChange={this.uploadFile} /> ;
+            <input {...this.props} ref="input" type="file" onChange={this.uploadFile} />
           </div>
         )
     }

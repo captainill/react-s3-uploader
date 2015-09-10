@@ -11,6 +11,8 @@ var ReactS3Uploader = React.createClass({
         onProgress: React.PropTypes.func,
         onFinish: React.PropTypes.func,
         onError: React.PropTypes.func,
+        onClearInput: React.PropTypes.func,
+        showClearButton: React.PropTypes.bool,
         signingUrlHeaders: React.PropTypes.object,
         signingUrlQueryParams: React.PropTypes.object,
         uploadRequestHeaders: React.PropTypes.object
@@ -26,6 +28,9 @@ var ReactS3Uploader = React.createClass({
             },
             onError: function(message) {
                 console.log("Upload error: " + message);
+            },
+            onClearInput: function() {
+                console.log("Upload clear input");
             }
         };
     },
@@ -43,8 +48,23 @@ var ReactS3Uploader = React.createClass({
         });
     },
 
+    _removeFile: function(){
+      this.props.onClearInput();
+
+      console.log(React.findDOMNode(this.refs.input).value);
+      React.findDOMNode(this.refs.input).value = '';
+    },
+
     render: function() {
-        return <input {...this.props} type='file' onChange={this.uploadFile} /> ;
+        return (
+          <div>
+            { this.props.showClearButton ?
+                <a className="remove-file-btn" onClick={this._removeFile}>X</a>
+              : null
+            }
+            <input {...this.props} ref="input" type="file" onChange={this.uploadFile} /> ;
+          </div>
+        )
     }
 
 });
